@@ -10,11 +10,21 @@ export const MyComponentFunc = ({name, children}) => {
     });
     const {message, username} = inputs;
 
+    const [messages, setMessages] = useState(['Angular', 'React', 'Vue', 'Ember']);
+
     const handleChange = (e) => {
         setInputs({
             ...inputs,
             [e.target.name]: e.target.value
         });
+    };
+
+    const handleKeyPress = (e) => {
+        if(e.key == 'Enter') {
+            setMessages(messages.concat(message));
+            //message변수 초기화
+            setInputs({message: ''});
+        }
     };
     
     return (
