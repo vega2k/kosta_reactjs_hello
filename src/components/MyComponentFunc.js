@@ -26,6 +26,12 @@ export const MyComponentFunc = ({name, children}) => {
             setInputs({message: ''});
         }
     };
+
+    const msg_list = messages.map((msg, idx) => {
+        return  <li key={idx}>
+                    {msg}
+                </li>
+    });
     
     return (
         <div>
@@ -34,7 +40,12 @@ export const MyComponentFunc = ({name, children}) => {
             <p>Number 값 : {number}</p>
             <button onClick={() => setNumber(number + 1)}>증가</button>
             <button onClick={() => setNumber(number - 1)}>감소</button> <br/>
-            Message : <input type="text" name="message" value={message} onChange={handleChange}/><br/>
+            Message : <input type="text" name="message" value={message} 
+                onChange={handleChange}
+                onKeyPress={handleKeyPress} /><br/>
+            <ul>
+                {msg_list}
+            </ul>
             Username : <input type="text" name="username" value={username} onChange={handleChange}/>
 
         </div>
