@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 export const MyComponentFunc = ({name, children}) => {
     const [number, setNumber] = useState(0);
@@ -12,6 +12,8 @@ export const MyComponentFunc = ({name, children}) => {
 
     const [messages, setMessages] = useState(['Angular', 'React', 'Vue', 'Ember']);
 
+    const myUsername = useRef(null);
+    
     const handleChange = (e) => {
         setInputs({
             ...inputs,
@@ -23,7 +25,9 @@ export const MyComponentFunc = ({name, children}) => {
         if(e.key == 'Enter') {
             setMessages(messages.concat(message));
             //message변수 초기화
-            setInputs({message: ''});
+            setInputs({
+                message: ''
+            });
         }
     };
 
