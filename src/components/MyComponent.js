@@ -8,7 +8,8 @@ class MyComponent extends Component {
         number: 0,
         message: '',
         username: '',
-        validate: false
+        validate: false,
+        messages: ['Angular', 'React', 'Vue', 'Ember']
     };
 
     //상태변수 number 값을 감소시키는 함수
@@ -24,16 +25,24 @@ class MyComponent extends Component {
             [e.target.name]: e.target.value
         });
     };
-    
+    // validate변수를 true로 변경하고, myUsername 필드에 focus주기
     handleFocus = () => {
-
+        this.setState({
+            validate: true
+        });
+        //ref:DOM 사용
+        this.myUsername.focus();
     }
 
     render() {
         //destructuring assignment 
         const { name, age } = this.props;
-        const { number, message, username, validate } = this.state;
+        const { number, message, username, validate, messages } = this.state;
         const { handleDec, handleChange, handleFocus } = this;
+        const msg_list = messages.map((msg, idx) => {
+            return <li key={idx}>{msg}</li>
+        });
+
         return (
             <div>
                 <h5>부모로 부터 받는 변수 Props </h5>
@@ -42,32 +51,37 @@ class MyComponent extends Component {
                 </p>
                 <h5>내부에 선언한 변수 State</h5>
                 <p>
-                    Number : {number}<br/>
+                    Number : {number}<br />
                     <button onClick={() => (this.setState({
                         number: number + 1
                     }))}>증가</button>
-                    <button onClick={handleDec}>감소</button> <br/>
-                    Message : {message} <br/>
-                    <input type="text" name="message" value={message} onChange={handleChange} />                    
-                    <br/>
-                    <button onClick={handleFocus}>Focus 주기</button>                   
-                    Username : {username} <br/>
-                    <input type="text" name="username" value={username} onChange={handleChange} 
-                        className={validate ? 'success':'fail'}
-                        ref={(ref) => this.myUsername = ref}
-                    />
+                    <button onClick={handleDec}>감소</button> <br />
                 </p>
+                Message : {message} <br />
+                <input type="text" name="message" value={message} onChange={handleChange} />
+                <br />
+
+                <ul>
+                    {msg_list}
+                </ul>
+                <button onClick={handleFocus}>Focus 주기</button>
+                    Username : {username} <br />
+                <input type="text" name="username" value={username} onChange={handleChange}
+                    className={validate ? 'success' : 'fail'}
+                    ref={(ref) => this.myUsername = ref}
+                />
+
             </div>
         );
     }
 }
 //defaultProps는 rdp 단축키로 생성
 MyComponent.defaultProps = {
-    name:'ReactJS'
+    name: 'ReactJS'
 };
 // propType는 rpt 단축키로 생성
 MyComponent.propTypes = {
     name: PropTypes.string,
-    age: PropTypes.number.isRequired    
+    age: PropTypes.number.isRequired
 };
 export default MyComponent;
