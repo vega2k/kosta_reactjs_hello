@@ -33,12 +33,25 @@ class MyComponent extends Component {
         //ref:DOM 사용
         this.myUsername.focus();
     }
+    // message input에서 입력값을 messages배열에 추가하기
+    handleKeyPress = (e) => {
+        const { messages, message } = this.state;
+        if(e.key === 'Enter') {
+            this.setState({
+                //messages: this.state.messages.concat(this.state.message),
+                //messages: messages.concat(message),
+                messages: [...messages, message],
+                message:''
+            });
+        }
+    }
+
 
     render() {
         //destructuring assignment 
         const { name, age } = this.props;
         const { number, message, username, validate, messages } = this.state;
-        const { handleDec, handleChange, handleFocus } = this;
+        const { handleDec, handleChange, handleFocus, handleKeyPress, setState } = this;
         const msg_list = messages.map((msg, idx) => {
             return <li key={idx}>{msg}</li>
         });
@@ -52,13 +65,15 @@ class MyComponent extends Component {
                 <h5>내부에 선언한 변수 State</h5>
                 <p>
                     Number : {number}<br />
-                    <button onClick={() => (this.setState({
+                    <button onClick={() => (setState({
                         number: number + 1
                     }))}>증가</button>
                     <button onClick={handleDec}>감소</button> <br />
                 </p>
                 Message : {message} <br />
-                <input type="text" name="message" value={message} onChange={handleChange} />
+                <input type="text" name="message" value={message} onChange={handleChange}
+                    onKeyPress={handleKeyPress}
+                />
                 <br />
 
                 <ul>
