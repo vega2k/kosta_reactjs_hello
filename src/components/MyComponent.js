@@ -36,7 +36,8 @@ class MyComponent extends Component {
     // message input에서 입력값을 messages배열에 추가하기
     handleKeyPress = (e) => {
         const { messages, message } = this.state;
-        if(e.key === 'Enter') {
+        //if(e.key === 'Enter') {
+        if(e.keyCode === 13) {
             this.setState({
                 //messages: this.state.messages.concat(this.state.message),
                 //messages: messages.concat(message),
@@ -72,7 +73,8 @@ class MyComponent extends Component {
                 </p>
                 Message : {message} <br />
                 <input type="text" name="message" value={message} onChange={handleChange}
-                    onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}
+                    //onKeyPress={handleKeyPress}
                 />
                 <br />
 
