@@ -46,15 +46,23 @@ class MyComponent extends Component {
             });
         }
     }
+    // <li>를 더블클릭 했을때 message 삭제하기
+    handleDoubleClick = (index) => {
+        this.setState({
+            messages: this.state.messages.filter((item,idx) => idx !== index)
+        });
+    }
 
 
     render() {
         //destructuring assignment 
         const { name, age } = this.props;
         const { number, message, username, validate, messages } = this.state;
-        const { handleDec, handleChange, handleFocus, handleKeyPress, setState } = this;
+        const { handleDec, handleChange, handleFocus, handleKeyPress, setState, handleDoubleClick } = this;
         const msg_list = messages.map((msg, idx) => {
-            return <li key={idx}>{msg}</li>
+            return  <li key={idx} onDoubleClick={() => handleDoubleClick(idx)}>
+                        {msg}
+                    </li>
         });
 
         return (
