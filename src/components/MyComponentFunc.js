@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import './MyComponent.css';
 
 export const MyComponentFunc = ({name, children}) => {
     const [number, setNumber] = useState(0);
@@ -14,6 +15,8 @@ export const MyComponentFunc = ({name, children}) => {
 
     const myUsername = useRef(null);
     
+    const [validate, setValidate] = useState(false);
+
     const handleChange = (e) => {
         setInputs({
             ...inputs,
@@ -29,6 +32,11 @@ export const MyComponentFunc = ({name, children}) => {
                 message: ''
             });
         }
+    };
+
+    const handleFocus = () => {
+        setValidate(true);
+        myUsername.current.focus();
     };
 
     const msg_list = messages.map((msg, idx) => {
@@ -50,7 +58,11 @@ export const MyComponentFunc = ({name, children}) => {
             <ul>
                 {msg_list}
             </ul>
-            Username : <input type="text" name="username" value={username} onChange={handleChange}/>
+            <button onClick={handleFocus}>Focus 주기</button><br/>
+            Username : <input type="text" name="username" value={username} 
+                onChange={handleChange}
+                ref={myUsername} className={validate ? 'success':'fail'}
+                />
 
         </div>
     );
